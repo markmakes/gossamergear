@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 10)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+  <html class="no-js" lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="robots" content="index,follow">
+
+    {% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %}{% endif %}
+    <title>{% if template contains "index" %}{{ page_title }}{% else %}{{ page_title }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}{% endif %}</title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags | escape }}.{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}.{% endif %}" />
+    {% endif %}
+
+    <!-- Custom Fonts -->
+    {% if settings.logo_font contains 'Google' or settings.headline_font contains 'Google' or settings.nav_font contains 'Google' or settings.slideshow_subtitle_font contains 'Google' or settings.regular_font contains 'Google' %}
+      <link href="//fonts.googleapis.com/css?family=.|{% if settings.logo_font contains 'Google' %}{{ settings.logo_font | replace: 'Google_', '' }}:light,normal,bold|{% endif %}{% if settings.headline_font contains 'Google' %}{{ settings.headline_font | replace: 'Google_', '' }}:light,normal,bold|{% endif %}{% if settings.nav_font contains 'Google' %}{{ settings.nav_font | replace: 'Google_', '' }}:light,normal,bold|{% endif %}{% if settings.slideshow_subtitle_font contains 'Google' %}{{ settings.slideshow_subtitle_font | replace: 'Google_', '' }}:light,normal,bold|{% endif %}{% if settings.regular_font contains 'Google' %}{{ settings.regular_font | replace: 'Google_', ''  }}:light,normal,bold{% endif %}" rel="stylesheet" type="text/css" />
+    {% endif %}
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    {% include 'social-meta-info' %}
+
+    {% if collection.previous_product %}
+      <link rel="prev" href="{{ collection.previous_product }}">
+    {% endif %}
+    {% if collection.next_product %}
+      <link rel="next" href="{{ collection.next_product }}">
+    {% endif %}
+
+    <!-- Mobile Specific Metas -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.shop_bg_color }}">
+
+    <script>var shopUrl = "{{ shop.permanent_domain }}"</script>
+
+    <!-- Stylesheets for Parallax 2.4 -->
+    {{ 'styles.scss.css' | asset_url | stylesheet_tag }}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ 'favicon.png' | asset_url }}">
+    <link rel="canonical" href="{{ canonical_url }}" />
+
+    {% if template contains 'customer' %}
+      {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+      {{ "customer_area.js"  | shopify_asset_url | script_tag }}
+    {% endif %}
+
+    {{ 'app.js' | asset_url | script_tag }}
+    {% if settings.product_slideshow_animation == 'zoom' %}{{ "cloudzoom.js" | asset_url | script_tag }}{% endif %}
+
+    <!--[if lte IE 8]>
+      {{ 'ie.css' | asset_url | stylesheet_tag }}
+      {{ 'skrollr.ie.js' | asset_url | script_tag }}
+    <![endif]-->
+
+    {{ content_for_header }}
+  </head>
+  {% if template contains "index" %}
+    {% assign feature_image = true %}
+  {% elsif template contains "collection" and settings.slideshow_collection_enabled %}
+    {% assign feature_image = true %}
+  {% elsif template contains "blog" and settings.slideshow_blog_enabled %}
+    {% assign feature_image = true %}
+  {% elsif template contains "article" and article.image and settings.slideshow_article_enabled %}
+    {% assign feature_image = true %}
+  {% elsif template contains "contact" and settings.slideshow_contact_enabled %}
+    {% assign feature_image = true %}
+  {% else %}
+    {% assign feature_image = false %}
+  {% endif %}
+  <body class="{{ template | replace: '.', '-' | handle }} {% if feature_image %}feature_image{% endif %}">
+    <div id="content_wrapper">
+      {% if settings.promo_text != blank %}
+        {% if template contains "index" and settings.promo_home_page %} 
+          <div class="promo_banner">
+            {{ settings.promo_text }}
+          </div>
+        {% elsif settings.promo_home_page == false %}
+          <div class="promo_banner">
+            {{ settings.promo_text }}
+          </div>
+        {% endif %}
+      {% endif %}
+      <div>
+
+        <div id="header" class="mm-fixed-top">
+          <a href="#nav" class="icon-menu"><span>{{ 'layout.general.menu' | t }}</span></a>
+          <a href="{{ shop.url }}" title="{{ shop.name }}" class="mobile_logo logo">
+            <img src="{{ 'gossamer-gear-logo.png' | asset_url }}" alt="{{ shop.name }}" />
+          </a>
+          <a href="{{ shop.url }}/cart" class="icon-cart right"><span>{{ cart.item_count }}</span></a>
+        </div>
+
+        <div class="hidden">
+          <div id="nav">
+            <ul>
+              {% for link in linklists[settings.main_linklist].links %}
+                {% if linklists[link.handle] == empty %}
+                  <li {% if link.active %}class="Selected"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% else %}
+                  <li {% if link.active %}class="Selected"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a>
+                    <ul>
+                      {% for link in linklists[link.handle].links %}
+                        {% if linklists[link.handle] == empty %}
+                          <li {% if link.active %}class="Selected"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+                        {% else %}
+                        <li {% if link.active %}class="Selected"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a>
+                          <ul>
+                            {% for link in linklists[link.handle].links %}
+                              <li {% if link.active %}class="Selected"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+                            {% endfor %}
+                          </ul>
+                        </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </li>
+                {% endif %}
+              {% endfor %}
+              {% if shop.customer_accounts_enabled %}
+                {% if customer %}
+                  <li>
+                    <a href="/account">{{ customer.name }}</a>
+                  </li>
+                  <li>
+                    {{ 'layout.customer.log_out' | t | customer_logout_link }}
+                  </li>
+                {% else %}
+                  <li>
+                    {{ 'layout.customer.log_in' | t | customer_login_link }}
+                  </li>
+                {% endif %}
+              {% endif %}
+            </ul>
+          </div>
+
+          <!-- REMOVING CART DRAWER FOR NOW -->
+
+          <!-- <form action="/checkout" method="post" id="cart">
+
+            <ul data-money-format="{{ shop.money_format }}" data-shop-currency="{{ shop.currency }}" data-shop-name="{{ shop.name | escape }}">
+              <li class="mm-subtitle"><a class="continue ss-icon" href="#cart">&#x2421;</a></li>
+
+              {% if cart.item_count == 0 %}
+                <li class="empty_cart">{{ 'layout.general.empty_cart' | t }}</li>
+              {% else %}
+                {% for item in cart.items %}
+                  <li class="cart_item {% if forloop.last %}last_cart_item{% endif %}">
+                    <p class="mm-counter">
+                      <span class="ss-icon minus">&#x002D;</span><input type="number" min="0" class="quantity" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" /><span class="ss-icon plus">&#x002B;</span>
+                    </p>
+                    <a href="{{ item.url }}">
+                      {% if item.image %}
+                        <div class="cart_image">
+                          <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}" />
+                        </div>
+                      {% endif %}
+                      <div class="item_title">{{ item.title }}</div>
+                      <strong class="price">{{ item.price | money }}</strong>
+                    </a>
+                  </li>
+                {% endfor %}
+                <li class="mm-label">
+                  <p class="mm-counter">{{ cart.total_price | money }}</p>
+                  <a href="/cart">
+                    <strong>{{ 'layout.general.subtotal' | t }}</strong>
+                  </a>
+                </li>
+
+                <li class="mm-subtitle clearfix">
+                  {% if settings.display_special_instructions %}
+                    <textarea id="note" name="note" rows="2" placeholder="{{ 'layout.general.cart_note' | t }}" class="clearfix">{{ cart.note }}</textarea>
+                  {% endif %}
+
+                  {% if settings.display_tos_checkbox %}
+                    <p class="tos">
+                      <input type="checkbox" class="tos_agree" id="sliding_agree" />
+                      <label class="tos_label" for="sliding_agree">
+                        {{ 'cart.general.agree_to_terms_html' | t }}
+                      </label>
+                    </p>
+                  {% endif %}
+
+                  <input type="submit" class="action_button right" value="{{ 'layout.general.checkout' | t }}" />
+                  <a href="javascript:void(0)" class="action_button edit_cart right">{{ 'layout.general.continue_shopping' | t }}</a>
+                </li>
+              {% endif %}
+            </ul>
+          </form> -->
+
+        </div>
+
+        <div class="header {% if settings.fixed_header %}mm-fixed-top{% else %}is-absolute{% endif %} {% if feature_image %}is-absolute {% if settings.headline_animation != blank %}animated{% endif %}{% endif %} {% if settings.header_background %}header_bar{% elsif feature_image %}{% else %}header_bar{% endif %}" id="udundiSearch" ng-controller="SearchController" window-height>
+          <div class="container">
+            <div class="five columns logo">
+              <a href="{{ shop.url }}" title="{{ shop.name }}">
+                <img src="{{ 'gossamer-gear-logo.png' | asset_url }}" alt="{{ shop.name }}" />
+              </a>
+            </div>
+
+            <div class="eleven columns nav mobile_hidden">
+              
+              <ul class="menu right">
+                {% if settings.show_multiple_currencies %}
+                  <li class="currencies">
+                    {% include 'currencies-switcher' %}
+                  </li>
+                {% endif %}
+                {% if settings.search_enabled %}
+                  <li class="ud-search" ng-init="init()">
+                    <div class="input-group">
+                      <!-- remove by udundi -->
+                      <!-- <a href="/search" title="{{ 'general.search.title' | t }}" class="icon-search" id="search-toggle"></a> -->
+                      <span class="input-group-icon"><i class="material-icons">search</i></span>
+                      <input type="search" class="form-control input-group" ng-model="search" ng-model-options="{debounce: 250}" placeholder="Search">
+                    </div>
+                  </li>
+                {% endif %}
+                  <!-- added by udundi -->
+                  <!-- {% include 'ud-compare-icon' %} -->
+                {% if shop.customer_accounts_enabled %}
+                  <li>
+                    <a href="/account" title="{{ 'layout.customer.my_account' | t }} {% if customer %}({{ customer.email }}){% endif %}">{% if customer %}{{ 'layout.customer.my_account' | t }}{% else %}{{ 'layout.customer.log_in' | t }}{% endif %}</a>
+                  </li>
+                {% endif %}
+                <li class="cart">
+                  <a href="{{ shop.url }}/cart" class="icon-cart cart-button {% if cart.item_count > 0 %}cart-full{% endif %}"><span>{{ cart.item_count }}</span></a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="eleven columns nav mobile_hidden">
+
+              <ul class="menu {{ settings.menu_alignment }}">
+                {% for link in linklists[settings.main_linklist].links %}
+                  {% if linklists[link.handle] == empty %}
+                    <li><a href="{{ link.url }}" class="top-link {% if link.active %}active{% endif %}">{{ link.title }}</a></li>
+                  {% else %}
+
+                    {% comment %}
+                      Find out how many sub-links there are total in order to determine if the drop down should be split.
+                    {% endcomment %}
+                    {% assign count = 0 %}
+                    {% for link in linklists[link.handle].links %}
+                      {% capture count %}{{ count }}*{% endcapture %}
+                      {% if linklists[link.handle] != empty %}
+                        {% for link in linklists[link.handle].links %}
+                          {% capture count %}{{ count }}*{% endcapture %}
+                        {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                    {% assign column_threshold = settings.dropdown_column_links | minus: 0 %}
+
+                    <li class="{{ link.handle }}"><a href="{{ link.url }}" class="sub-menu {% if link.active %}active{% endif %} {% for link in linklists[link.handle].links %}{% for l in linklists[link.handle].links %} {% if l.active %}active{% endif %}{% endfor %}{% if link.active %}active{% endif %}{% endfor %}">{{ link.title }}
+                      &nbsp;<span class="icon-down-arrow"></span></a>
+                      <div class="dropdown animated fadeIn {% if count.size > column_threshold %}dropdown-wide{% endif %}">
+                        <div class="dropdown_links clearfix">
+                          <ul>
+                            {% assign count = 0 %}
+                            {% assign split = false %}
+                            {% for l in linklists[link.handle].links %}
+                              {% capture count %}{{ count }}*{% endcapture %}
+                              {% if link.handle == 'shop' %}
+                                <li class="{{ l.handle }}">
+                                  <a class="sub-link" href="{{ l.url }}" style="background-image: url('{{ l.object.image.src | collection_img_url: 'large' }}')">
+                                    <span>{{ l.title }}</span>
+                                  </a>
+                                </li>
+                              {% else %}
+                                <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+                              {% endif %}
+                              {% if linklists[subLink.handle] != empty %}
+                                {% for l in linklists[subLink.handle].links %}
+                                  {% capture count %}{{ count }}*{% endcapture %}
+                                  <li>
+                                    <a class="sub-link" href="{{ l.url }}">{{ l.title }}</a>
+                                  </li>
+                                {% endfor %}
+                              {% endif %}
+
+                              {% if count.size > column_threshold and split == false %}
+                                {% assign split = true %}
+                                </ul>
+                                <ul>
+                              {% endif %}
+                            {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          
+          </div>
+
+          <!-- added by udundi -->
+          {% include 'ud-search' %}
+        </div>
+
+        {% unless feature_image %}
+          <div class="container main content">
+        {% endunless %}
+
+        {% if template contains 'list-collections' %}
+          {% include 'collection-listing' %}
+        {% else %}
+          {{ content_for_layout }}
+        {% endif %}
+
+        </div>
+        <div class="footer">
+          <div class="container">
+
+            <div class="seven columns">
+              {% if settings.social_icons_footer %}
+                <h6>{{ 'layout.general.social' | t }}</h6>
+
+                {% if settings.twitter_link != '' %}
+                  <a href="{{ settings.twitter_link }}" title="{{ shop.name }} on Twitter" class="ss-icon" rel="me" target="_blank">
+                    &#xF611;
+                  </a>
+                {% endif %}
+
+                {% if settings.instagram_link != '' %}
+                  <a href="{{ settings.instagram_link }}" title="{{ shop.name }} on Instagram" class="ss-icon" rel="me" target="_blank">
+                    &#xF641;
+                  </a>
+                {% endif %}
+
+                {% if settings.facebook_link != '' %}
+                  <a href="{{ settings.facebook_link }}" title="{{ shop.name }} on Facebook" class="ss-icon" rel="me" target="_blank">
+                    &#xF610;
+                  </a>
+                {% endif %}
+
+                {% if settings.google_link != '' %}
+                  <a href="{{ settings.google_link }}" title="{{ shop.name }} on Google+" class="ss-icon" rel="publisher" target="_blank">
+                    &#xF613;
+                  </a>
+                {% endif %}
+
+                {% if settings.youtube_link != '' %}
+                  <a href="{{ settings.youtube_link }}" title="{{ shop.name }} on YouTube" class="ss-icon" rel="me" target="_blank">
+                    &#xF630;
+                  </a>
+                {% endif %}
+
+                {% if settings.vimeo_link != '' %}
+                  <a href="{{ settings.vimeo_link }}" title="{{ shop.name }} on Vimeo" class="ss-icon" rel="me" target="_blank">
+                    &#xF631;
+                  </a>
+                {% endif %}
+
+                {% if settings.pinterest_link != '' %}
+                  <a href="{{ settings.pinterest_link }}" title="{{ shop.name }} on Pinterest" class="ss-icon" rel="me" target="_blank">
+                    &#xF650;
+                  </a>
+                {% endif %}
+
+                {% if settings.tumblr_link != '' %}
+                  <a href="{{ settings.tumblr_link }}" title="{{ shop.name }} on Tumblr" class="ss-icon" rel="me" target="_blank">
+                    &#xF620;
+                  </a>
+                {% endif %}
+
+                {% if settings.linkedin_link != '' %}
+                  <a href="{{ settings.linkedin_link }}" title="{{ shop.name }} on LinkedIn" class="ss-icon" rel="me" target="_blank">
+                    &#xF612;
+                  </a>
+                {% endif %}
+
+                {% if settings.flickr_link != '' %}
+                  <a href="{{ settings.flickr_link }}" title="{{ shop.name }} on Flickr" class="ss-icon" rel="me" target="_blank">
+                    &#xF640;
+                  </a>
+                {% endif %}
+
+                {% if settings.email_link != '' %}
+                  <a href="mailto:{{ settings.email_link }}" title="Email {{ shop.name }}" class="ss-icon" target="_blank">
+                    &#x2709;
+                  </a>
+                {% endif %}
+              {% endif %}
+
+              {% if settings.footer_content_page != blank %}
+                {{ pages[settings.footer_content_page].content }}
+              {% endif %}
+            </div>
+
+            <div class="nine columns">
+              {% if settings.footer_linklist_1 != blank %}
+                <ul class="footer_menu">
+                  {% for link in linklists[settings.footer_linklist_1].links %}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+
+
+              <ul class="footer_legal_menu">
+                {% for link in linklists.legal-footer-items.links %}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>
+
+              <p>{{ 'general.newsletter_form.description' | t }}</p>
+              {% include 'newsletter' %}
+
+              {% if settings.footer_content_page2 != blank %}
+                {{ pages[settings.footer_content_page2].content }}
+              {% endif %}
+
+              <p class="mobile_only">
+                {% if settings.show_multiple_currencies %}
+                  <label for="currencies">{{ 'layout.general.pick_a_currency' | t }}: </label>
+                  {% include 'currencies-switcher' %}
+                {% endif %}
+              </p>
+
+              {% comment %}
+              <p class="credits">
+                &copy; {{ "now" | date: "%Y" }} {{ shop.name | link_to: '/' }}.
+                {{ settings.copyright_text }}<br />
+                {% if settings.display_designed_by == true %}
+                  {{ 'layout.general.designer_credits_html' | t }}
+                {% endif %}
+
+                {{ powered_by_link | split: '" ' | join: '?ref=out-of-the-sandbox" ' | split: '">' | join: '?ref=out-of-the-sandbox">' }}
+              </p>
+              {% endcomment %}
+
+              {% if settings.display_payment_methods %}
+                <div class="payment_methods">
+                  {% for type in shop.enabled_payment_types %}
+                    <img src="{{ type | payment_type_img_url }}" alt="{{ type | replace: "_", " " | capitalize }}" />
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div id="search" class="animated">
+          <div class="container">
+            <div class="ten columns offset-by-three center">
+              <form action="/search">
+                {% if settings.search_option != 'everything' %}
+                  <input type="hidden" name="type" value="product" />
+                {% endif %}
+                <div class="search-close ss-icon">&#x2421;</div>
+                <span class="icon-search search-submit"></span>
+                <input type="text" name="q" placeholder="{{ 'general.search.placeholder_with_shop_name' | t: shop_name: shop.name }}" value="{% if search and search.results.first.price %}{{ search.terms }}{% endif %}" autocapitalize="off" autocomplete="off" autocorrect="off" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    {% if template contains "product" and settings.size_chart != blank %}
+      <div id="size-chart">
+        <h5 class="center">{{ pages[settings.size_chart].title }}</h5>
+        <div class="feature_divider"></div>
+        {{ pages[settings.size_chart].content }}
+      </div>
+    {% endif %}
+    {% include 'newsletter-popup' %}
+    {% include 'currencies' %}
+    {% if settings.disqus_enabled and settings.blog_comment_count %}
+      {% if template contains "blog" or template contains "article" or template contains "index" %}
+        <script id="dsq-count-scr" src="//{{ settings.disqus_shortname }}.disqus.com/count.js" async></script>
+      {% endif %}
+    {% endif %}
+
+    <script>
+      var productsCount = {{ shop.products_count }};
+    </script>
+
+    {% if blog.handle == 'brand-ambassadors' %}
+      {{ 'ud-blogger.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    {% if blog.handle == 'brand-ambassadors' %}
+    <!-- UDUNDI BLOGGER APP DATA -->
+    <script type="text/javascript">
+      var articlesCount = {{ blog.articles_count }};
+    </script>
+
+    {% endif %}
+    
+  </body>
+</html>

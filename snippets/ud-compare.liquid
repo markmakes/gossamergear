@@ -1,0 +1,45 @@
+<div id="udCompare" class="ud-cmpr-dropdown-menu">
+  <div class="container">
+    <div class="ud-cmpr-row">
+      <div class="ud-cmpr-col-12">
+        <h3 class="ud-cmpr-title pull-left"><i class="material-icons">compare_arrows</i> Product Compare</h3>
+        <button class="ud-cmpr-close pull-right" role="button"><i class="material-icons">close</i></button>
+      </div>
+    </div>
+
+    <div class="ud-cmpr-products">
+      <div class="ud-cmpr-product ud-cmpr-col-3" rv-show="udCmprData.udCmprCount | greater 0" rv-each-product="udCmprData.udCmprProducts" rv-id="product.id">
+
+        <a rv-on-click="udCmprController.udCmprRemove" class="ud-cmpr-remove" role="button"><i class="material-icons">close</i></a>
+
+        <div class="ud-cmpr-row ud-cmpr-image">
+          <span class="ud-cmpr-helper"></span>
+          <img rv-src="product.featured_image" rv-alt="{ product.title }" />
+        </div>
+
+        <div class="ud-cmpr-row">
+          <div class="ud-cmpr-col-12 ud-cmpr-title">
+            <a href="../products/{ product.handle }"><b>{ product.title }</b></a>
+          </div>
+          <div class="ud-cmpr-col-12">
+            <a href="../products/{ product.handle }">
+              <span class="ud-cmpr-price" rv-text="product.price | currency"></span>
+              <span class="ud-cmpr-compare-at-price" rv-if="product.compare_at_price" rv-text="product.compare_at_price | currency"></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="ud-cmpr-row ud-cmpr-details">
+          <div class="ud-cmpr-col-12">
+            <p rv-html="product.description"></p>
+            <p>{ product.vendor }</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div rv-hide="udCmprData.udCmprCount | lt 1" class="ud-cmpr-no-products">
+      <p>No products to compare.</p>
+    </div>
+  </div>
+</div>
+<div class="ud-cmpr-backdrop"></div>

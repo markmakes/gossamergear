@@ -1,0 +1,34 @@
+{% comment %}
+  DO NOT MODIFY THIS FILE DIRECTLY. YOU CAN COPY AND PASTE INTO A NEW SNIPPET.
+  THIS FILE WILL BE OVERWRITTEN.
+{% endcomment %}
+<div class="custom-fields-wrapper">
+
+            {% if product.metafields.custom_fields["faq"] != blank %}
+            <div class="custom-field custom-field__faq custom-field__type--html">
+                <h3 class="custom-field--title">FAQ</h3>
+                <div class="custom-field--value">{{ product.metafields.custom_fields["faq"] }}</div>
+              </div>
+            {% endif %}
+
+            {% if product.metafields.custom_fields["features"] != blank %}
+            <div class="custom-field custom-field__features custom-field__type--html">
+                <h3 class="custom-field--title">Features</h3>
+                <div class="custom-field--value">{{ product.metafields.custom_fields["features"] }}</div>
+              </div>
+            {% endif %}
+
+            {% if product.metafields.custom_fields["sizing"] != blank %}
+            <div class="custom-field custom-field__sizing custom-field__type--html">
+                <h3 class="custom-field--title">Sizing</h3>
+                <div class="custom-field--value">{{ product.metafields.custom_fields["sizing"] }}</div>
+              </div>
+            {% endif %}
+
+            {% if product.metafields.custom_fields["specs"] != blank %}
+            <div class="custom-field custom-field__specs custom-field__type--html">
+                <h3 class="custom-field--title">Specs</h3>
+                <div class="custom-field--value">{{ product.metafields.custom_fields["specs"] }}</div>
+              </div>
+            {% endif %}
+</div>

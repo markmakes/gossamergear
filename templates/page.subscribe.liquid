@@ -1,0 +1,58 @@
+<div class="sixteen columns page clearfix">
+  <h1 class="center">
+    {{ page.title }}
+  </h1>
+  <div class="feature_divider"></div>
+
+  <div>
+    {% include 'page-multi-column', content: page.content %}
+  </div>
+
+  <!-- Button trigger modal -->
+  <a data-toggle="modal" data-target="#privacyPolicy">Read Privacy Policy</a>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="privacyPolicy" tabindex="-1" role="dialog" aria-labelledby="privacyPolicyLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title" id="privacyPolicyLabel">Privacy Policy</h4>
+      </div>
+      <div class="modal-body">
+        <h3>Our Commitment To Privacy</h3>
+        <p>Your privacy is important to us. So, in an effort to better protect your privacy and help you understand the choices available to you, we are providing this notice. Below, you will find an explanation of our online information practices and the choices you can make about the way your information is collected and used. We hope you find it clear and useful.</p>
+
+
+        <h3>The Information We Collect</h3>
+        <p>This notice applies to all information collected or submitted on the Gossamer Gear website. When you order products, make requests, and register to receive materials, these specific pages collect personal information such as name, address, email address, phone numbers and credit/debit card information (for purchases).</p>
+        <p>We also use the standard technology “cookies” to collect information regarding how our site is used. Information collected may include date and time of visits, site pages viewed, time spent on our site, and the sites visited just before or just after our site. Information is collected in aggregate only, without association to your personal information.</p>
+
+
+        <h3>The Way We Use Information</h3>
+        <p>We use the information you provide when placing an order only to complete that order. We do not share this information with outside parties except to the extent necessary to complete that order. We use return email addresses to answer the email we receive. Such addresses are not used for any other purpose and are not shared with outside parties. Also see <a href="../../terms-and-conditions">Terms and Conditions</a>.</p>
+        <p>If you would like to receive our newsletter containing product updates and special offers, you can register with our website. You can opt out at any time.</p>
+        <p>We use non-identifying and aggregate information to better design our website and to understand our customers. We may also use it to provide special offers to customer and <a href="../../subscribe">newsletter subscribers</a>. Most importantly, we never share the personally identifiable information provided to us online.</p>
+
+
+        <h3>Our Commitment To Data Security</h3>
+        <img class="pull-left" title="Secured by Comodo" alt="" src="{{ 'secured-by-comodo.png' | asset_url }}" width="98" height="97" scale="0" style="padding: 15px;">
+        <p>We use Nexcess as our SSL (Secure Socket Layer) digital certificate provider, providing you with the strongest certificate services available. Your credit card information is encrypted while being transferred to our servers. Your credit card number is not stored in our office files, our computer databases or our secure web servers. We apologize that having to re-enter information every time you order can be an inconvenience, but we feel that the added security against credit card fraud is worth the trouble.</p>
+
+
+        <h3>Our Commitment To Children’s Privacy</h3>
+        <p>Protecting the privacy of the very young is especially important. For that reason, we ask that children under thirteen not submit information without the consent of a parent or guardian. No part of our website is structured to attract anyone under 13.</p>
+
+
+        <h3>How You Can Access Or Correct Your Information</h3>
+        <p>You can access all your personally identifiable information that we collect online and maintain by contacting us here: Contact Us. To correct factual errors in your personally identifiable information, send us a request that credibly shows error. We take reasonable steps to verify your identity before making corrections to further protect your privacy and security.</p>
+        <!-- <small>Last updated:30th November, 2015</small> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn action_button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
