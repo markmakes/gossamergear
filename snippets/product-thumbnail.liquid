@@ -1,3 +1,5 @@
+{% assign variant = product.selected_or_first_available_variant %}
+
 {% if product-thumbnail %}
   <div class="{% if products_per_row == "2" %}six columns {% cycle collection_group_thumb: 'alpha', 'omega' %}{% elsif products_per_row == "3" %}four columns {% cycle collection_group_thumb: 'alpha', '', 'omega' %}{% else %}three columns {% cycle collection_group_thumb: 'alpha', '', '', 'omega' %}{% endif %} thumbnail {% cycle collection_group_mobile: 'even', 'odd' %}" itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">
 {% else %}
@@ -26,7 +28,7 @@
       {% endif %} -->
     </div>
 
-    <div class="info">            
+    <div class="info">
       <span class="title" itemprop="name">{{ product.title }}</span>
       {% if settings.display_vendor_collection %}
         <span itemprop="brand">{{ product.vendor }}</span>
@@ -34,11 +36,11 @@
 
       {% unless collection_handles contains 'coming-soon' %}
         <span class="price {% if product.compare_at_price_max > product.price %}sale{% endif %}" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-          {% if product.available %}
+          {% if variant.inventory_quantity > 2 %}
             {% if product.price_varies and product.price_min > 0 %}
               <small><em>{{ 'products.general.from' | t }}</em></small>
             {% endif %}
-              {% if product.price_min > 0 %} 
+              {% if product.price_min > 0 %}
                 <span itemprop="price">{{ product.price_min | money }}</span>
               {% else %}
                 {{ settings.free_price_text }}
@@ -72,11 +74,11 @@
 {% if settings.quick_shop_enabled %}
   <div id="product-{{ product.id }}" class="modal product-{{ product.id }}">
     <div class="container section" style="width: inherit">
-      
+
       <div class="eight columns" style="padding-left: 15px">
         {% include 'product-images' with 'modal' %}
       </div>
-      
+
       <div class="six columns">
         <h3>{{ product.title }}</h3>
         {% if settings.display_vendor_collection %}
@@ -87,11 +89,11 @@
 
         {% unless collection_handles contains 'coming-soon' %}
           <p class="modal_price">
-            <span class="sold_out">{% if product.available == false %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+            <span class="sold_out">{% if variant.inventory_quantity > 2 %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
             <span class="current_price {% if product.compare_at_price_max > product.price %}sale{% endif %}">
-              {% if product.available %}
-                {% if product.price > 0 %} 
-                  {{ product.price | money }} 
+              {% if variant.inventory_quantity > 2 %}
+                {% if product.price > 0 %}
+                  {{ product.price | money }}
                 {% else %}
                   {{ settings.free_price_text }}
                 {% endif %}
@@ -99,13 +101,13 @@
             </span>
             <span class="was_price">
               {% if product.price < product.compare_at_price_max %}
-                {{ product.compare_at_price | money }} 
+                {{ product.compare_at_price | money }}
               {% endif %}
             </span>
           </p>
-        
+
           {% include 'product-notify-me' %}
-        {% endunless %} 
+        {% endunless %}
 
         {% if settings.product_description_position == "top" %}
           {% if settings.quick_shop_full_description %}
@@ -122,7 +124,7 @@
           {% endif %}
           <hr />
         {% endif %}
-        
+
         {% unless collection_handles contains 'coming-soon' %}
           {% include 'product-form' %}
         {% endunless %}
@@ -135,7 +137,7 @@
 
           {% else %}
             <p>
-              {{ product.description | strip_html | truncatewords: settings.description_words | replace: 'Description', '' | replace: 'Dimensions', '' | replace: 'Details', '' | replace: 'Specs', '' | replace: 'Shipping', ''  }}         
+              {{ product.description | strip_html | truncatewords: settings.description_words | replace: 'Description', '' | replace: 'Dimensions', '' | replace: 'Details', '' | replace: 'Specs', '' | replace: 'Shipping', ''  }}
 
               <a href="{{ product.url | within: collection }}" class="view_product_info" title="{{ product.title | escape }} Details">{{ 'collections.general.view_product_details_html' | t }} <span class="icon-right-arrow"></span></a>
             </p>

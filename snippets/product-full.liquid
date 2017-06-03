@@ -1,11 +1,11 @@
 {% for product in products %}
   {% assign collection_handles = product.collections | map: 'handle' %}
   {% capture left_product_layout %}
-    <div class="product-{{ product.id }} section clearfix" itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">   
+    <div class="product-{{ product.id }} section clearfix" itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">
       <div class="seven columns offset-by-two alpha animate_left">
         {% include 'product-images' %}
       </div>
-    
+
       <div class="five columns omega animate_right">
         <h2 class="product_name" itemprop="name"><a href="{{ product.url }}">{{ product.title }}</a></h2>
         {% if settings.display_vendor %}
@@ -19,15 +19,15 @@
           <p class="modal_price" itemscope itemtype="http://schema.org/Offer">
              <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
              <meta itemprop="seller" content="{{ shop.name | escape }}" />
-             <meta itemprop="availability" content="{% if product.available %}in_stock{% else %}out_of_stock{% endif %}" />
+             <meta itemprop="availability" content="{% if variant.inventory_quantity > 2 %}in_stock{% else %}out_of_stock{% endif %}" />
              <meta itemprop="itemCondition" content="New" />
 
-             <span class="sold_out">{% if variant.available == false %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+             <span class="sold_out">{% if variant.inventory_quantity <= 2 %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
              <span itemprop="price" content="{{ variant.price | money_without_currency }}" class="{% if variant.compare_at_price > variant.price %}sale{% endif %}">
                 <span class="current_price">
-                  {% if variant.available %}
-                    {% if variant.price > 0 %} 
-                      {{ variant.price | money }} 
+                  {% if variant.inventory_quantity > 2 %}
+                    {% if variant.price > 0 %}
+                      {{ variant.price | money }}
                     {% else %}
                       {{ settings.free_price_text }}
                     {% endif %}
@@ -40,7 +40,7 @@
               {% endif %}
              </span>
           </p>
-        
+
           {% include 'product-notify-me' %}
           {% include 'product-form' with 'product' %}
         {% endunless %}
@@ -55,7 +55,7 @@
   {% endcapture %}
 
   {% capture right_product_layout %}
-    <div class="product-{{ product.id }} section clearfix" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">       
+    <div class="product-{{ product.id }} section clearfix" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">
      <div class="five columns offset-by-two alpha animate_left">
       <h2 class="product_name" itemprop="name"><a href="{{ product.url }}">{{ product.title }}</a></h2>
       {% if settings.display_vendor %}
@@ -69,15 +69,15 @@
         <p class="modal_price" itemscope itemtype="http://schema.org/Offer">
           <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
           <meta itemprop="seller" content="{{ shop.name | escape }}" />
-          <meta itemprop="availability" content="{% if product.available %}in_stock{% else %}out_of_stock{% endif %}" />
+          <meta itemprop="availability" content="{% if variant.inventory_quantity > 2 %}in_stock{% else %}out_of_stock{% endif %}" />
           <meta itemprop="itemCondition" content="New" />
-          
-          <span class="sold_out">{% if variant.available == false %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+
+          <span class="sold_out">{% if variant.inventory_quantity <= 2 %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
           <span itemprop="price" content="{{ variant.price | money_without_currency }}" class="{% if variant.compare_at_price > variant.price %}sale{% endif %}">
              <span class="current_price">
-               {% if variant.available %}
-                 {% if variant.price > 0 %} 
-                   {{ variant.price | money }} 
+               {% if variant.inventory_quantity > 2 %}
+                 {% if variant.price > 0 %}
+                   {{ variant.price | money }}
                  {% else %}
                    {{ settings.free_price_text }}
                  {% endif %}
@@ -90,7 +90,7 @@
            {% endif %}
           </span>
         </p>
-       
+
         {% include 'product-notify-me' %}
         {% include 'product-form' with 'product' %}
       {% endunless %}
