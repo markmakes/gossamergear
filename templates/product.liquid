@@ -91,6 +91,8 @@
         {% include 'product-notify-me' %}
       {% endunless %}
 
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+
       {% if settings.product_description_position == "top" %}
         {% if product.description != blank %}
          <div class="description" itemprop="description">
@@ -179,6 +181,10 @@
           </div>
         {% endif %}
 
+        <div class="tab animated" id="reviews-tab">
+          Reviews ({{ product.metafields.spr.reviews | size }})
+        </div>
+
         {% if product.metafields.custom_fields.specs != blank %}
           <div class="tab animated" id="specs-tab">
             Specs / Material
@@ -213,6 +219,10 @@
             {{ product.metafields.custom_fields.sizing }}
           </div>
         {% endif %}
+
+        <div class="extra-cont" id="reviews-tab-cont">
+          <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+        </div>
 
         {% if product.metafields.custom_fields.specs != blank %}
           <div class="extra-cont" id="specs-tab-cont">
