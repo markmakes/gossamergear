@@ -182,7 +182,16 @@
         {% endif %}
 
         <div class="tab animated" id="reviews-tab">
-          Reviews ({{ product.metafields.spr.reviews | size }})
+          {% comment %}
+            DD: Hopefully this is only a temporary solution to get the review count.
+          {% endcomment %}
+          Reviews <span id="reviews-tab-count"></span>
+          <script type="text/javascript">
+            $( document ).ready(function() {
+              var count = Number( $("meta[itemProp='reviewCount']").attr('content') );
+              $('#reviews-tab-count').html("("+ (count || 0) +")")
+            });
+          </script>
         </div>
 
         {% if product.metafields.custom_fields.specs != blank %}
