@@ -1,0 +1,28 @@
+<div search-window-height endless-search="increaseLimit()" ud-reload class="ud-results ng-animate ng-hide" ng-show="search.length" ng-cloak>
+  <div class="container">
+      
+      <div class="ud-no-results text-center ng-hide" ng-show="(productsAll|filter:search).length == 0">
+        <p>Your search "<span>{[search]}</span>" did not have any matches.</p>
+      </div>
+
+      <div class="ud-grid no-padding-right no-padding-left">
+        <div masonry preserve-order reload-on-show reload-on-resize class="masonry" column-width=".ud-grid-sizer" percent-position="true" item-selector=".ud-grid-item">
+          <div class="ud-grid-sizer"></div>
+          <div masonry-brick class="ud-grid-item" ng-repeat="product in productsAll | filter: search | limitTo: searchLimit track by $index">
+            <div class="ud-item-wrapper">
+              <a ng-href="../products/{[ product.handle ]}">
+                <div class="ud-image">
+                  <img ng-src="{[ product.image.src || 'https://storage.googleapis.com/udundi-filtering/dist/images/products/no-image.jpg' ]}" alt="{[ product.title ]}" />
+                </div>
+              </a>
+              <div class="ud-details">
+                <span class="ud-title">{[ product.title ]}</span>
+                <span class="ud-price">{[ (product.variants[0].price) | currency ]}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>

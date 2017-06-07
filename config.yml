@@ -1,0 +1,13 @@
+live:
+  theme_id: live
+  password: c50b9a0d42eccdd86aca99abeb8d6af0
+  store: gossamer-gear.myshopify.com
+# development:
+#   theme_id: 167506060
+#   password: c50b9a0d42eccdd86aca99abeb8d6af0
+#   store: gossamer-gear.myshopify.com
+#   bucket_size: 40
+#   refill_rate: 2
+#   ignore_files:
+#     - README.md
+#     - config.example.yml

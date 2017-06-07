@@ -1,0 +1,90 @@
+<div class="sixteen columns">
+  <h1 class="center">
+    {% if current_tags %}
+      <a href="/blogs/{{ blog.handle }}/tagged/{{ current_tags | handleize }}" title="{{ blog.title | escape }}">{{ current_tags }}</a>
+    {% else %}
+      <a href="{{ blog.url }}" title="{{ blog.title | escape }}">{{ blog.title }}</a>
+    {% endif %}
+  </h1>
+  <div class="feature_divider"></div>
+</div>  
+
+<p>Our Brand Ambassadors are enthusiastic advocates of ultralight and lightweight backpacking, eager to pass along their outdoor skills and experience to other hikers, backpackers, and adventurers. Many volunteer their time with hiking clubs or conservation organizations, some are professional guides, and others document their adventures for magazines or online publications. But there’s no secret formula for what makes a good Brand Ambassador, so if you love Gossamer Gear’s products and you’re active in the hiking and backpacking community, we encourage you to apply to the <a href="#">Brand Ambassador Program</a>.</p>
+
+<div id="udundiBlogger" ng-controller="BloggerController" class="page {{ blog.handle | downcase }}">
+  
+  <!-- Begin content -->
+  <div class="ud-grid">
+    <div masonry preserve-order reload-on-show reload-on-resize class="masonry" column-width=".ud-grid-sizer" percent-position="true" item-selector=".ud-grid-item">
+      <div class="ud-grid-sizer"></div>
+      <div masonry-brick ud-expand id="{[ article.handle ]}" class="ud-grid-item ud-{[ article.id ]}" ng-repeat="article in articles track by $index">
+        <button ud-close-resize type="button" class="ud-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div when-visible="animateIn" when-not-visible="animateOut" class="ud-hidden ud-item-wrapper ud-pull-left">
+          <div class="ud-item-overlay"></div>
+          <img ud-relayout class="ud-img-fluid" ng-src="{[ article.image.src ]}" />
+          <div class="ud-item-details ud-hidden-xs ud-hidden-sm">
+            <div class="ud-row">
+              <h4 class="ud-item-title">{[ article.title ]}</h4>
+              <!-- <p class="ud-item-published">{[ article.published_at | date : 'MMMM yyyy' ]}</p> -->
+            </div>
+          </div>
+        </div>
+        <div class="ud-item-expand" id="{[ article.handle ]}">
+          <h4 class="ud-item-expand-title ud-fade-in-left ud-delay-4ms">{[ article.title ]}</h4>
+          <!-- <p class="ud-item-expand-published ud-fade-in-left ud-delay-5ms">{[ article.published_at | date : 'MMMM yyyy' ]}</p> -->
+          <div class="ud-item-expand-content ud-fade-in-left ud-delay-6ms" ng-bind-html="article.body_html"></div>
+          <!-- <ud-related-products></ud-related-products> -->
+        </div>
+        <!-- Controls -->
+        <div class="ud-left ud-item-control">
+          <a role="button" ud-prev-item class="material-icons ud-prev-icon">chevron_left</a>
+          <span class="ud-sr-only">Previous</span>
+        </div>
+        <div class="ud-right ud-item-control">
+          <a role="button" ud-next-item class="material-icons ud-next-icon">chevron_right</a>
+          <span class="ud-sr-only">Next</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Brand Ambassador Application Form
+If there’s one trait that all of Gossamer Gear’s Brand Ambassadors share, it’s a love of hiking in all of its forms from long distance thru-hiking and weekend backpacking trips to day-hiking, pack-rafting, peakbagging and bushwhacking. If you love to hike and you enjoy helping other hikers discover the benefits of lightweight hiking and backpacking gear, we encourage you to apply to the Gossamer Gear Brand Ambassador Program by filling in the Application Form below.
+
+Brand Ambassador Benefits
+
+As a Gossamer Gear Brand Ambassador, you will receive a backpack of your choice when you are admitted to the Brand Ambassador Program and an on-going pro-deal discount on all products manufactured by Gossamer Gear for your own personal use as long as you are a Brand Ambassador.
+
+A discount code that you can share with friends, family, or acquaintances who are interested in purchasing ultralight backpacks, poles, and accessories from Gossamer Gear.
+
+Free publicity and assistance for Brand Ambassador sponsored gear demos, talks and courses on ultralight and lightweight backpacking, conservation-related  charity events, and publications.
+
+Invitations to regional Brand Ambassador meetups, hikes, and backpacking trips held across North America and Europe.
+
+A Monthly Brand Ambassador newsletter with behind-the-scenes news, product updates, and announcements.
+
+Early access to new products and design prototypes.
+
+A Personalized Brand Ambassador Bio Page on the Gossamer Gear Web Site.
+
+Program Requirements
+
+As a Brand Ambassador, we expect you to use Gossamer Gear products when you are out on hiking and backpacking trips. You don’t have to use Gossamer Gear products exclusively, but we do want other hikers to see you using our packs, trekking poles or accessories and to be able to ask you questions about them.
+
+Brand Ambassadors are encouraged to hold gear demos and give talks about the techniques and benefits of ultralight and lightweight backpacking. Gossamer Gear will assist you by providing product samples to demonstrate and supporting instructional materials.
+
+Ambassadors can provide design input and feedback on new products and design prototypes.
+
+Attend Brand Ambassador sponsored events or meetups in your area.
+
+Provide trip reports, how-to articles, photographs and updates for Gossamer Gear’s blog, newsletter, and social media channels.
+
+To Apply
+
+Please fill out the following form to apply to the Gossamer Gear Brand Ambassador Program. We will contact you if we have any further questions. All of the information you enter into this application  will be held in confidence and is only for internal use by Gossamer Gear.
+
+
+Program Update
+
+*Currently not accepting applications at this time. Please no emails on this topic. Program accepting period will be announced in our weekly newsletter. Thank you, GG Staff -->

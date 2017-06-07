@@ -1,0 +1,276 @@
+/* Grid styles */
+.ud-results,
+.ud-grid-item,
+.ud-grid-sizer {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ud-grid {
+  min-height: 480px;
+}
+.ud-grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.ud-grid-sizer,
+.ud-grid-item {
+  width: 33.3333%;
+}
+.ud-results .ud-grid-sizer,
+.ud-results .ud-grid-item {
+  width: 25%;
+}
+.ud-grid-item.mega, 
+.ud-grid-item.moreLikeThis {
+  width: 66.6666%;
+}
+.ud-grid-item {
+  height: auto;
+  padding: 8px;
+}
+.ud-grid-item .ud-item-wrapper {
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eee;
+
+  // -webkit-box-shadow: 0 3px 10px 0 rgba(0,0,0,.5);
+  //    -moz-box-shadow: 0 3px 10px 0 rgba(0,0,0,.5);
+  //     -ms-box-shadow: 0 3px 10px 0 rgba(0,0,0,.5);
+  //      -o-box-shadow: 0 3px 10px 0 rgba(0,0,0,.5);
+  //         box-shadow: 0 3px 10px 0 rgba(0,0,0,.3);
+
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-transition: all .3s ease-out;
+     -moz-transition: all .3s ease-out;
+       -o-transition: all .3s ease-out;
+          transition: all .3s ease-out;
+}
+.ud-grid-item:hover .ud-item-wrapper {
+  // -webkit-box-shadow: 0 8px 20px 0 rgba(0,0,0,0.5);
+  //    -moz-box-shadow: 0 8px 20px 0 rgba(0,0,0,0.5);
+  //     -ms-box-shadow: 0 8px 20px 0 rgba(0,0,0,0.5);
+  //      -o-box-shadow: 0 8px 20px 0 rgba(0,0,0,0.5);
+  //         box-shadow: 0 8px 20px 0 rgba(0,0,0,0.5);
+}
+ .ud-grid-item .ud-image {
+  position: relative;
+ } 
+.ud-grid-item .ud-image img {
+  max-width: 100%;
+  max-height: 200px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  opacity: 0;
+  -webkit-transition: opacity 1s;
+     -moz-transition: opacity 1s;
+      -ms-transition: opacity 1s;
+          transition: opacity 1s;
+}
+.ud-grid-item.loaded .ud-image img {
+  opacity: 1;
+}
+.ud-grid-item:hover .ud-image img {
+  opacity: .7;
+}
+.ud-details {
+  background: #fff;
+  position: relative;
+  height: auto;
+  padding: 0 15px 15px;
+  text-align: center;
+  -webkit-transition: -webkit-transform 0.3s;
+     -moz-transition: -moz-transform 0.3s;
+      -ms-transition: -ms-transform 0.3s;
+       -o-transition: -o-transform 0.3s;
+          transition: transform 0.3s;
+}
+.ud-grid-item .ud-title {
+  display: block;
+  font-weight: 300;
+  line-height: normal;
+  color: #222;
+  font-size: 100%;
+  word-wrap: break-word;
+  width: 100%;
+}
+.ud-grid-item .ud-details .ud-price, 
+.ud-grid-item.moreLikeThis .ud-price {
+  display: block;
+  font-size: 100%;
+  font-weight: bold;
+  width: 100%;
+  color: #222;
+  overflow: hidden;
+  z-index: 10;
+  opacity: 1;
+}
+
+/* Search styles */
+.ud-hidden { 
+  opacity: 0;
+  visibility: hidden;
+}
+body.ud-searching {
+  overflow-y: hidden;
+}
+.ud-results {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  // background: rgba(255,255,255,.85);
+  background: rgba(255,255,255,0.7);
+  overflow: scroll;
+  z-index: 100;
+  /* custom for each theme */
+  padding-top: 30px;
+  -webkit-box-shadow: inset 0px 15px 10px -10px rgba(0,0,0,0.15),0 6px 5px 0 rgba(0,0,0,0.2);
+  box-shadow: inset 0px 15px 10px -10px rgba(0,0,0,0.15),0 6px 5px 0 rgba(0,0,0,0.2);
+}
+.ng-animate {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+.ng-animate.ng-hide {
+  opacity: 0;
+  height: 0;
+}
+.ng-animate.ng-show-animate {
+  opacity: 1;
+}
+.ud-results .ud-grid {
+}
+.ud-no-results {
+  color: #333;
+  padding-top: 4rem;
+  text-align: center;
+}
+/* Keyframe Animations */
+/* udFadeIn */
+.ud-fade-in {
+  opacity: 0;
+
+  -webkit-animation-name: udFadeIn;
+          animation-name: udFadeIn;
+
+  -webkit-animation-duration: 0.7s;
+          animation-duration: 0.7s;
+
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+@-webkit-keyframes udFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes udFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* udFadeInUp */
+.ud-fade-in-up {
+  -webkit-animation-name: udFadeInUp;
+          animation-name: udFadeInUp;
+
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+@-webkit-keyframes udFadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100px, 0);
+    -moz-transform: translate3d(0, 100px, 0);
+    -ms-transform: translate3d(0, 100px, 0);
+    -o-transform: translate3d(0, 100px, 0);
+    transform: translate3d(0, 100px, 0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+  }
+}
+@keyframes udFadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100px, 0);
+    -moz-transform: translate3d(0, 100px, 0);
+    -ms-transform: translate3d(0, 100px, 0);
+    -o-transform: translate3d(0, 100px, 0);
+    transform: translate3d(0, 100px, 0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+  }
+}
+
+/* Large Devices */
+@media (min-width: 1200px) {
+  .ud-results .ud-grid-sizer,
+  .ud-results .ud-grid-item {
+    width: 25%;
+  }
+}
+
+@media (min-width: 992px) {
+  .ud-sidebar--left {
+    width: 17%;
+  }
+  .ud-grid-wrapper.ud-sidebar--left {
+    padding-left: 30px;
+  }
+}
+
+/* Medium Devices & Desktops */
+@media (max-width: 992px) {}
+
+/* Small Tablets */
+@media (max-width: 768px) {
+  .ud-results .ud-grid-sizer,
+  .ud-results .ud-grid-item {
+    width: 50%;
+  }
+}
+
+/* Landscape phones */
+@media (max-width: 480px) {}
+
+
+.ud-image img {
+  width: auto;
+}
