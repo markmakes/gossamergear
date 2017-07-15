@@ -75,7 +75,7 @@
   <body class="{{ template | replace: '.', '-' | handle }} {% if feature_image %}feature_image{% endif %}">
     <div id="content_wrapper">
       {% if settings.promo_text != blank %}
-        {% if template contains "index" and settings.promo_home_page %} 
+        {% if template contains "index" and settings.promo_home_page %}
           <div class="promo_banner">
             {{ settings.promo_text }}
           </div>
@@ -203,7 +203,7 @@
             </div>
 
             <div class="eleven columns nav mobile_hidden">
-              
+
               <ul class="menu right">
                 <!-- {% if settings.show_multiple_currencies %}
                   <li class="currencies">
@@ -212,12 +212,15 @@
                 {% endif %} -->
                 {% if settings.search_enabled %}
                   <li class="ud-search" ng-init="init()">
-                    <div class="input-group">
-                      <!-- remove by udundi -->
-                      <!-- <a href="/search" title="{{ 'general.search.title' | t }}" class="icon-search" id="search-toggle"></a> -->
-                      <span class="input-group-icon"><i class="material-icons">search</i></span>
-                      <input type="search" class="form-control input-group" ng-model="search" ng-model-options="{debounce: 250}" placeholder="Search">
-                    </div>
+                    <!-- DD: added back normal search form -->
+                    <form action="/search" style="margin-bottom:0">
+                      <div class="input-group">
+                        <!-- remove by udundi -->
+                        <!-- <a href="/search" title="{{ 'general.search.title' | t }}" class="icon-search" id="search-toggle"></a> -->
+                        <span class="input-group-icon"><i class="material-icons">search</i></span>
+                        <input type="text" name="q" placeholder="{{ 'general.search.title' | t }}" value="" class="form-control input-group" x-webkit-speech="" autocapitalize="off" autocomplete="off" autocorrect="off">
+                      </div>
+                    </form>
                   </li>
                 {% endif %}
                   <!-- added by udundi -->
@@ -296,7 +299,7 @@
                 {% endfor %}
               </ul>
             </div>
-          
+
           </div>
 
           <!-- added by udundi -->
@@ -493,6 +496,6 @@
     </script>
 
     {% endif %}
-    
+
   </body>
 </html>
