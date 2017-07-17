@@ -8,22 +8,22 @@
       <li>
         {{ 'general.search.results_count' | t: count: search.results_count }}
       </li>
-    </ul>    
+    </ul>
   {% endif %}
 </div>
 
 {% if search.performed %}
-  
-  {% if search.results == empty %}    
+
+  {% if search.results == empty %}
     <br class="clear" />
     <br class="clear" />
-    <div class="clearfix">    
-      <p class="quote">{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>      
+    <div class="clearfix">
+      <p class="quote">{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>
     </div>
 
     <br class="clear" />
     <br class="clear" />
-  {% else %}  
+  {% else %}
 
  {% if settings.search_option == 'everything' or search.results.first.price == blank %}
 
@@ -44,33 +44,33 @@
              <a href="{{ item.url }}" title="{{ item.title | escape }}">
                 <img src="{{ item.image | img_url: 'grande' }}"  alt="{{ item.title | escape }}" />
              </a>
-          </div> 
+          </div>
         {% elsif item.featured_image %}
           {% assign featured_image = true %}
           <div class="four columns alpha">
              <a href="{{ item.url }}" title="{{ item.title | escape }}">
                 <img src="{{ item.featured_image | product_img_url: 'grande' }}"  alt="{{ item.title | escape }}" />
              </a>
-          </div> 
+          </div>
         {% endif %}
-        
+
         {% if settings.collection_sidebar %}
           <div class="{% if featured_image %}eight{% else %}twelve{% endif %} columns omega align_left">
         {% else %}
           <div class="{% if featured_image %}twelve{% else %}sixteen alpha{% endif %} columns omega align_left">
-        {% endif %}        
+        {% endif %}
 
           <h5 class="sub_title">
             <a href="{{ item.url }}" title="{{ item.title | escape }}">{{ item.title }}</a>
-          </h5> 
+          </h5>
 
           {% if item.price %}
-             <div class="info">                                              
+             <div class="info">
                 <span class="price">
                   {% if item.compare_at_price_max > item.price %}
                     <span class="was_price">{{ item.compare_at_price_max | money }}</span>
                   {% endif %}
-                    
+
                   {% if item.available %}
                     {% if item.price_varies %}
                       {% if item.compare_at_price_max > item.price %}
@@ -85,7 +85,7 @@
                 </span>
             </div>
           {% endif %}
-          
+
           {% if item.object_type == 'article' %}
             <p class="blog_meta">
               {% if settings.blog_author %}
@@ -100,21 +100,21 @@
 
           {% if item.excerpt %}
             <div class="excerpt">{{ item.excerpt }}</div>
-            
+
             {% if settings.read_more_link %}
               <p>
                 <a href="{{ item.url }}" title="{{ item.title | escape }}">{{ 'blogs.general.continue_reading_html' | t }} <span class="icon-right-arrow"></span></a>
-              </p>                
-            {% endif %}  
+              </p>
+            {% endif %}
           {% else %}
             <p>
               {{ item.content | strip_html | truncatewords: 40 | highlight: search.terms | replace: 'Description', '' | replace: 'Specs', '' | replace: 'Shipping', '' | replace: 'Size', '' }}
-            </p>         
+            </p>
           {% endif %}
         </div>
-      </div>  
-    <hr />  
-   {% endfor %}  
+      </div>
+    <hr />
+   {% endfor %}
   </div>
 
  {% else %}
@@ -133,17 +133,17 @@
     {% endif %}
   {% endif %}
 
-  {% include 'pagination' %}    
+  {% include 'pagination' %}
 
 {% else %}
-  <div class="clearfix search_page">  
+  <div class="clearfix search_page">
     <br class="clear" />
-    <br class="clear" />   
+    <br class="clear" />
     <div class="ten columns offset-by-three columns center">
       <p class="quote">
         {{ 'general.search.description' | t }}
       </p>
-    </div>    
+    </div>
       <form class="search" action="/search">
         <div class="four offset-by-five columns center">
           {% if settings.search_option != 'everything' %}
