@@ -1284,7 +1284,18 @@ table { margin-bottom: 20px;}
 .relative { position: relative; }
 .align_right { text-align:right }
 .align_left { text-align: left; }
-p.warning { text-align: center; font-weight: bold; padding-top: 10px; }
+p.warning {
+  text-align: center;
+  padding: 10px;
+  background: #fff3e3;
+  border: 1px solid #ffe4c2;
+  border-radius: 10px;
+  margin: 0 0 30px;
+  @media(max-width: 767px) {
+    line-height: 17px;
+    font-size: 13px;
+  }
+}
 .container div.mobile_only, span.mobile_only, .mobile_only { display:none; }
 .no_border { border: none !important; }
 .extra_padding { padding-top: 4px; }
