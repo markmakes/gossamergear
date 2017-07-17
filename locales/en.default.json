@@ -48,7 +48,7 @@
     "search": {
       "title": "Search",
       "description": "Search for anything in our shop.",
-      "no_results_html": "Your search for \"{{ terms }}\" did not match any results.",
+      "no_results_html": "Your search for \"{{ terms }}\" did not match any products.",
       "advanced_search_html": "Advanced Search &#8594;",
       "no_results": "No results found.",
       "results_count": {
