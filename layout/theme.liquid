@@ -215,9 +215,9 @@
                     <!-- DD: added back normal search form -->
                     <form action="/search" style="margin-bottom:0">
                       <div class="input-group">
-                        <input type="hidden" name="type" value="product" />
                         <!-- remove by udundi -->
                         <!-- <a href="/search" title="{{ 'general.search.title' | t }}" class="icon-search" id="search-toggle"></a> -->
+                        <input type="hidden" name="type" value="product,page" />
                         <span class="input-group-icon"><i class="material-icons">search</i></span>
                         <input type="text" name="q" placeholder="{{ 'general.search.title' | t }}" value="" class="form-control input-group" x-webkit-speech="" autocapitalize="off" autocomplete="off" autocorrect="off">
                       </div>
