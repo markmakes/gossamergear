@@ -1488,11 +1488,6 @@ a.tag {
 
 // ML: category page updates without udundi
 .grid__item.large--one-third {
-  // .grid__image {
-  //   display: block;
-  //   height: 250px;
-  //   overflow: hidden;
-  // }
   float: left;
   width: 23%;
   margin: 0 1% 20px;
@@ -1505,6 +1500,15 @@ a.tag {
     width: 48%;
   }
 
+  .sold-out-message {
+    color: red;
+    opacity: 0.5;
+    font-weight: bold;
+    -ms-transform: rotate(-45deg); /* IE 9 */
+    -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+    transform: rotate(-45deg);
+  }
+
   a.grid__image {
     display: block;
     height: 16em;
@@ -1513,6 +1517,10 @@ a.tag {
   img {
     max-width: 100%;
     max-height: 15em;
+
+    &.sold-out {
+      opacity: 0.25;
+    }
   }
 
   .product-grid-title {

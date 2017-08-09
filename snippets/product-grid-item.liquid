@@ -40,7 +40,9 @@
 <div class="grid__item {{ grid_item_width }} text-center product-grid-image">
 
   {% if sold_out %}
-    <div class="sold-out">{{ 'products.product.sold_out' | t }}</div>
+    <div style="position: absolute; padding-top: 1.5em">
+      <div class="sold-out-message">{{ 'products.product.sold_out' | t }}</div>
+    </div>
   {% endif %}
 
   {% comment %}
@@ -56,7 +58,9 @@
 
   {% endcomment %}
   <a href="{{ product.url | within: collection }}" class="grid__image">
-    <img src="{{ product.featured_image.src | img_url: '600x600' }}" alt="{{ product.featured_image.alt | escape }}">
+    <img src="{{ product.featured_image.src | img_url: '600x600' }}"
+      alt="{{ product.featured_image.alt | escape }}"
+      class="{% if sold_out %}sold-out{% endif %}">
   </a>
 
   {% assign product_vendor_handle = product.vendor | handle %}
