@@ -22,7 +22,9 @@
       {% endcomment %}
       {% for product in collection.products %}
 
-        {% include 'product-grid-item' %}
+        {% if product.available %}
+          {% include 'product-grid-item' %}
+        {% endif %}
 
       {% else %}
 
@@ -48,6 +50,15 @@
 
         {% endif %}
 
+      {% endfor %}
+
+      {% comment %}
+        Loop through again to include all the sold out products.
+      {% endcomment %}
+      {% for product in collection.products %}
+        {% unless product.available %}
+          {% include 'product-grid-item' %}
+        {% endunless %}
       {% endfor %}
 
     </div>
