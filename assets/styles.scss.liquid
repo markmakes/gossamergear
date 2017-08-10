@@ -1501,12 +1501,14 @@ a.tag {
   }
 
   .sold-out-message {
-    color: red;
-    opacity: 0.5;
+    color: black;
+    opacity: 0.7;
     font-weight: bold;
     -ms-transform: rotate(-45deg); /* IE 9 */
     -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
     transform: rotate(-45deg);
+    padding: 0.5em;
+    background-color: #ddd;
   }
 
   a.grid__image {
@@ -1517,10 +1519,6 @@ a.tag {
   img {
     max-width: 100%;
     max-height: 15em;
-
-    &.sold-out {
-      opacity: 0.25;
-    }
   }
 
   .product-grid-title {
