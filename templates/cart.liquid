@@ -1,8 +1,8 @@
 {% assign has_backpack = 'false' %}
-{% assign has_hipbelt = 'false' %}  
+{% assign has_hipbelt = 'false' %}
 
 {% assign has_tent = 'false' %}
-{% assign has_tent_poles = 'false' %} 
+{% assign has_tent_poles = 'false' %}
 
   <div class="sixteen columns clearfix collection_nav">
     <h1 class="center">{{ 'cart.general.title' | t }}</h1>
@@ -12,7 +12,7 @@
   {% if cart.item_count == 0 %}
     <div class="sixteen columns">
       <div class="section clearfix">
-        <p class="quote">{{ 'cart.general.continue_browsing_html' | t }}</p>  
+        <p class="quote">{{ 'cart.general.continue_browsing_html' | t }}</p>
         <br class="clear" />
 
         {% assign collection = '' %}
@@ -23,8 +23,8 @@
     </div>
   {% else %}
 
-  <form action="/cart" method="post" id="cart_form">        
-    <div class="section clearfix">  
+  <form action="/cart" method="post" id="cart_form">
+    <div class="section clearfix">
       <div class="ten columns cart_items">
         <h4 class="title">{{ 'cart.general.products' | t }}</h4>
 
@@ -53,7 +53,7 @@
 
         {% for item in cart.items %}
           <div class="five columns alpha">
-            <a href="{{ item.url }}" title="{{ item.title | escape }}" class="cart_page_image">       
+            <a href="{{ item.url }}" title="{{ item.title | escape }}" class="cart_page_image">
               <img src="{{ 'loader.gif' | asset_url }}" data-src="{{ item | img_url: 'medium' }}" data-src-retina="{{ item | img_url: 'grande' }}" alt="{{ item.title | escape }}" />
             </a>
           </div>
@@ -61,8 +61,8 @@
           <div class="five columns omega">
             <p>
               <a href="{{ item.url }}" title="{{ item.title | escape }}">{{ item.title }}</a>
-            </p> 
-            
+            </p>
+
             {% if item.properties %}
               <p>
                 {% for p in item.properties %}
@@ -78,7 +78,7 @@
             {% endif %}
 
             <p class="price_total">
-              {% if item.price > 0 %} 
+              {% if item.price > 0 %}
                 {{ item.price | money_with_currency }}
               {% else %}
                 {{ settings.free_price_text }}
@@ -106,7 +106,7 @@
           </h4>
 
           <p class="subtotal_amount">
-            <strong>{{ cart.total_price | money_with_currency }}</strong> 
+            <strong>{{ cart.total_price | money_with_currency }}</strong>
             {% comment %}
             <small id="estimated-shipping" style="display:none">+ <em>{{ 0 | money }} {{ 'cart.shipping_calculator.estimated_shipping' | t }}</em></small>
             {% endcomment %}
@@ -122,9 +122,9 @@
             </p>
           {% endif %}
 
-          {% if settings.display_special_instructions %} 
+          {% if settings.display_special_instructions %}
             <label for="note">{{ 'cart.general.note' | t: shop_name: shop.name }}:</label>
-            <textarea id="note" name="note" rows="2">{{ cart.note }}</textarea>        
+            <textarea id="note" name="note" rows="2" style="margin-bottom:2.5em">{{ cart.note }}</textarea>        
           {% endif %}
 
           {% if settings.display_tos_checkbox %}
@@ -139,7 +139,7 @@
           <p>
             <input type="submit" class="action_button add_to_cart" id="checkout" name="checkout" value="{{ 'cart.general.checkout' | t }}" />
           </p>
-          
+
           <p class="center">
             {{ content_for_additional_checkout_buttons | google_button_options: 'transparent' }}
           </p>
@@ -153,7 +153,7 @@
       </div>
     </div>
   </form>
-  
+
   {% include 'cart-shipping-calculator' %}
   <br class="clear" />
   <br class="clear" />
