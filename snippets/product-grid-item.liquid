@@ -33,7 +33,8 @@
   Check if the product is sold out and set a variable to be used below.
 {% endcomment %}
 {% assign sold_out = true %}
-{% if product.available %}
+{% include 'product_sold_out_threshold' %}
+{% if product.available and product_beats_sold_out_threshold %}
   {% assign sold_out = false %}
 {% endif %}
 

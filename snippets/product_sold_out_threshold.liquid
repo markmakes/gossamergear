@@ -1,0 +1,31 @@
+{% comment %}
+
+  Author: Daniel Dixon
+  Company: ellym
+  Date: October 2017
+
+  Description: Calculates if the inventory across a product's variants beats
+    the "Sold Out Threshold" set in the products metafields.
+
+  Requirements: This snippet assume Shopify's 'product' liquid variable is set.
+
+{% endcomment %}
+
+{% assign product_beats_sold_out_threshold = true %}
+{% assign sold_out_threshold = product.metafields.custom_fields.sold_out_threshold | default: 2 %}
+{% assign variant_inventory_quantity = 0 %}
+{% for v in product.variants %}
+  {% assign variant_inventory_quantity = variant_inventory_quantity | plus: v.inventory_quantity %}
+{% endfor %}
+{% if variant_inventory_quantity <= sold_out_threshold %}
+  {% assign product_beats_sold_out_threshold = false %}
+{% endif %}
+
+<script type="text/javascript">
+  window.GossamerGear = window.GossamerGear || {}
+  window.GossamerGear[{{ product.id }}] = {
+    name: {{ product.title | json }},
+    sold_out_threshold: {{ sold_out_threshold | json }},
+    variant_count: {{ product.variants.size }}
+  }
+</script>

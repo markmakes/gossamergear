@@ -3,11 +3,11 @@
 {% endcomment %}
 
 {% assign file_extension = 'png' %}
-
 {% assign swatch = product-swatch %}
 {% assign found_option = false %}
 {% assign is_color = false %}
 {% assign option_index = 0 %}
+{% include 'product_sold_out_threshold' %}
 
 {% for option in product.options %}
   {% if option == swatch %}
@@ -31,7 +31,7 @@
       {% assign values = values | split: ',' %}
 
       <input id="swatch-{{ option_index }}-{{ value | handle }}-{{ product.id }}" type="radio" name="option-{{ option_index }}" value="{{ value | escape }}"{% if forloop.first %} checked{% endif %} />
-      <div data-value="{{ value | escape }}" class="swatch-element {% if is_color %}color {% endif %}{{ value | handle }}-swatch {% if variant.inventory_quantity > 2 %}available{% else %}soldout{% endif %}">
+      <div data-value="{{ value | escape }}" class="swatch-element {% if is_color %}color {% endif %}{{ value | handle }}-swatch {% if product_beats_sold_out_threshold %}available{% else %}soldout{% endif %}">
         {% if is_color %}
           <div class="tooltip">{{ value }}</div>
         {% endif %}
@@ -47,7 +47,7 @@
         {% endif %}
       </div>
     {% endunless %}
-    {% if variant.inventory_quantity > 2 %}
+    {% if product_beats_sold_out_threshold %}
       <script type="text/javascript">
         $('.swatch[data-option-index="{{ option_index }}"] .{{ value | handle }}-swatch', '#product-form-{{ product.id }}').removeClass('soldout').addClass('available').find(':radio');
       </script>
