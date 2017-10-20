@@ -6,7 +6,7 @@
     {% if settings.display_inventory_left %}
 
       <div class="items_left">
-        {% if product.variants.first.inventory_management != blank %}
+        {% if product.variants.first.inventory_management != blank and product.variants.first.inventory_quantity > 0 %}
           {% capture items_left_text %}
             {% if product.variants.first.inventory_quantity == 1 %}
               {{ 'products.product.items_left_count.one' | t }}
@@ -53,7 +53,7 @@
     {% if settings.display_product_quantity %}
       <div class="qty">
         <label for="quantity">{{ 'products.product.quantity' | t }}</label>
-        <input type="number" min="1" size="2" class="quantity" name="quantity" id="quantity" value="1" {% if product.variants.first.inventory_management == 'shopify' and product.variants.first.inventory_policy == "deny" %}max="{{ product.variants.first.inventory_quantity }}"{% endif %} />
+        <input type="number" min="1" size="2" class="quantity" name="quantity" id="quantity" value="1" {% if product.variants.first.inventory_management == 'shopify' and product.variants.first.inventory_quantity > 0 and product.variants.first.inventory_policy == "deny" %}max="{{ product.variants.first.inventory_quantity }}"{% endif %} />
       </div>
     {% endif %}
     <div class="purchase clearfix {% if settings.display_product_quantity %}inline_purchase{% endif %}">
