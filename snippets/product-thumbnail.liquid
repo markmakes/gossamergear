@@ -15,6 +15,13 @@
   {% endif %}
 
   <a href="{{ product.url | within: collection }}" itemprop="url">
+
+    {% unless product_beats_sold_out_threshold %}
+      <div style="position: absolute; padding-top: 1.5em; z-index: 5">
+        <div class="sold-out-message">{{ 'products.product.sold_out' | t }}</div>
+      </div>
+    {% endunless %}
+
     <div class="relative product_image">
       {% if products_per_row == "4" %}
         <img src="{{ 'loader.gif' | asset_url }}" data-src="{{ product.featured_image | product_img_url: 'large' }}" data-src-retina="{{ product.featured_image | product_img_url: 'grande' }}" alt="{{ alt_text | escape }}" />
@@ -51,13 +58,13 @@
           {% else %}
             <span class="sold_out">{{ 'products.product.sold_out' | t }}</span>
           {% endif %}
-          {% if product.compare_at_price_max > product.price %}
+          {% if product.compare_at_price_max > product.price and product_beats_sold_out_threshold %}
             <span class="was_price">{{ product.compare_at_price_max | money }}</span>
           {% endif %}
         </span>
       {% endunless %}
     </div>
-    {% if settings.sale_banner_enabled and product.compare_at_price_max > product.price %}
+    {% if settings.sale_banner_enabled and product.compare_at_price_max > product.price and product_beats_sold_out_threshold %}
       <div class="sale_banner">{{ 'collections.general.sale' | t }}</div>
     {% endif %}
 
