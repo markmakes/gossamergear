@@ -582,7 +582,7 @@ $(function() {
         $('.was_price', $product).text('')
       }
 
-      if (variant.inventory_management && variant.inventory_quantity > sold_out_threshold_per_variant) {
+      if (variant.inventory_management && variant.inventory_quantity > 0) {
         {% if settings.display_inventory_left %}
           if (variant.inventory_quantity == 1) {
             items_left_text = {{ 'products.product.items_left_count.one' | t | json }};
