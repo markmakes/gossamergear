@@ -1,6 +1,13 @@
 <script type="text/javascript">
-var f=document.createElement('script')
-f.setAttribute("type","text/javascript")
-f.setAttribute("src", "//transportr.io/tracker/?u=6788&r=" + encodeURIComponent(document.referrer))
-document.getElementsByTagName("head")[0].appendChild(f)
+  // DD: redirect old blog links instead of hit Transportr
+  if(window.location.pathname.startsWith("/wp/")) {
+    window.location = "http://blog.gossamergear.com" + window.location.pathname.slice(3)
+  }
+  // DD: let Transportr show the link in the admin
+  else {
+    var f=document.createElement('script')
+    f.setAttribute("type","text/javascript")
+    f.setAttribute("src", "//transportr.io/tracker/?u=6788&r=" + encodeURIComponent(document.referrer))
+    document.getElementsByTagName("head")[0].appendChild(f)
+  }
 </script>
