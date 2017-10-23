@@ -1,3 +1,5 @@
+{% include 'product_sold_out_threshold' %}
+
 <div class="sixteen columns">
   <div class="clearfix breadcrumb">
     <div class="nav_arrows">
@@ -64,12 +66,12 @@
         <p class="modal_price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
           <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
           <meta itemprop="seller" content="{{ shop.name | escape }}" />
-          <meta itemprop="availability" content="{% if variant.inventory_quantity > 2 %}in_stock{% else %}out_of_stock{% endif %}" />
+          <meta itemprop="availability" content="{% if product_beats_sold_out_threshold %}in_stock{% else %}out_of_stock{% endif %}" />
           <meta itemprop="itemCondition" content="New" />
 
-          <span class="sold_out">{% if variant.inventory_quantity <= 2 %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+          <span class="sold_out">{% unless product_beats_sold_out_threshold %}{{ 'products.product.sold_out' | t }}{% endunless %}</span>
           <span itemprop="price" content="{{ variant.price | money_without_currency }}" class="{% if variant.compare_at_price > variant.price %}sale{% endif %}">
-            <span class="current_price {% if variant.inventory_quantity <= 2 %}hidden{% endif %}">
+            <span class="current_price {% unless product_beats_sold_out_threshold %}hidden{% endunless %}">
               {% if variant.price > 0 %}
                 {{ variant.price | money }}
               {% else %}
@@ -78,7 +80,7 @@
             </span>
           </span>
           <span class="was_price">
-          {% if variant.price < variant.compare_at_price and variant.inventory_quantity > 2 %}
+          {% if variant.price < variant.compare_at_price and product_beats_sold_out_threshold %}
             {{ variant.compare_at_price | money }}
           {% endif %}
           </span>

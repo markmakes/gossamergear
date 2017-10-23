@@ -1474,8 +1474,8 @@ a.tag {
   font-size: {{ settings.nav_font_size | minus: 2 }}px;
   text-transform: {{ settings.nav_font_style }};
   letter-spacing: {{ settings.nav_letter_spacing }}px;
-
-  padding: 2px 5px;
+  border-radius: 0.5em;
+  padding: 2px 10px;
   text-align: center;
   color: #fff;
 }
@@ -1484,6 +1484,18 @@ a.tag {
 }
 .thumbnail .price, .thumbnail .title {
   display: block
+}
+
+.sold-out-message {
+  color: black;
+  opacity: 0.7;
+  font-weight: bold;
+  -ms-transform: rotate(-45deg); /* IE 9 */
+  -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+  transform: rotate(-45deg);
+  padding: 0.5em;
+  background-color: #ddd;
+  border-radius: 0.5em;
 }
 
 // ML: category page updates without udundi
@@ -1498,17 +1510,6 @@ a.tag {
 
   @media(max-width: 1200px) {
     width: 48%;
-  }
-
-  .sold-out-message {
-    color: black;
-    opacity: 0.7;
-    font-weight: bold;
-    -ms-transform: rotate(-45deg); /* IE 9 */
-    -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
-    transform: rotate(-45deg);
-    padding: 0.5em;
-    background-color: #ddd;
   }
 
   a.grid__image {
