@@ -4,6 +4,13 @@
 {% endcomment %}
 <div class="custom-fields-wrapper">
 
+            {% if product.metafields.custom_fields["sold_out_threshold"] != blank %}
+            <div class="custom-field custom-field__sold-out-threshold custom-field__type--integer">
+                <h3 class="custom-field--title">Sold Out Threshold - Product shows as "Sold Out" when at or below this number. The default and the minimum value is 2.</h3>
+                <div class="custom-field--value">{{ product.metafields.custom_fields["sold_out_threshold"] }}</div>
+              </div>
+            {% endif %}
+
             {% if product.metafields.custom_fields["faq"] != blank %}
             <div class="custom-field custom-field__faq custom-field__type--html">
                 <h3 class="custom-field--title">FAQ</h3>
