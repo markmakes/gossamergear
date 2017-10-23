@@ -1,8 +1,10 @@
-{% if product.available %}
+{% include 'product_sold_out_threshold' %}
 
-  <form action="/cart/add" method="post" class="clearfix product_form" data-money-format="{{ shop.money_format }}" data-shop-currency="{{ shop.currency }}" id="product-form-{{ product.id }}"> 
-    
+{% if product.available and product_beats_sold_out_threshold %}
+  <form action="/cart/add" method="post" class="clearfix product_form" data-money-format="{{ shop.money_format }}" data-shop-currency="{{ shop.currency }}" id="product-form-{{ product.id }}">
+
     {% if settings.display_inventory_left %}
+
       <div class="items_left">
         {% if product.variants.first.inventory_management != blank and product.variants.first.inventory_quantity > 0 %}
           {% capture items_left_text %}
@@ -17,7 +19,7 @@
         {% endif %}
       </div>
     {% endif %}
-    
+
     {% if product.options.size > 1 %}
 
       <div class="select">
@@ -63,13 +65,13 @@
 
       {% capture add_to_cart_label %}{% if collection_handles contains 'pre-order' %}{{ 'collections.general.pre_order' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}{% endcapture %}
       <button type="submit" name="add" class="action_button add_to_cart" data-label={{ add_to_cart_label | json }}><span class="text">{{ add_to_cart_label }}</span></button>
-    </div>  
+    </div>
   </form>
 
   {% if product.variants.size > 1 or product.options.size > 1 %}
     <script type="text/javascript">
-      // <![CDATA[  
-        $(function() {    
+      // <![CDATA[
+        $(function() {
           $product = $('.product-' + {{ product.id }});
           new Shopify.OptionSelectors("product-select-{{ product.id }}{{ product-form }}", { product: {{ product | json }}, onVariantSelected: selectCallback{% if template contains 'product' %}, enableHistoryState: true{% endif %} });
         });

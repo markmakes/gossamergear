@@ -1,4 +1,5 @@
 {% for product in products %}
+  {% include 'product_sold_out_threshold' %}
   {% assign collection_handles = product.collections | map: 'handle' %}
   {% capture left_product_layout %}
     <div class="product-{{ product.id }} section clearfix" itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">
@@ -19,13 +20,13 @@
           <p class="modal_price" itemscope itemtype="http://schema.org/Offer">
              <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
              <meta itemprop="seller" content="{{ shop.name | escape }}" />
-             <meta itemprop="availability" content="{% if variant.inventory_quantity > 2 %}in_stock{% else %}out_of_stock{% endif %}" />
+             <meta itemprop="availability" content="{% if product_beats_sold_out_threshold %}in_stock{% else %}out_of_stock{% endif %}" />
              <meta itemprop="itemCondition" content="New" />
 
-             <span class="sold_out">{% if variant.inventory_quantity <= 2 %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+             <span class="sold_out">{% unless product_beats_sold_out_threshold %}{{ 'products.product.sold_out' | t }}{% endunless %}</span>
              <span itemprop="price" content="{{ variant.price | money_without_currency }}" class="{% if variant.compare_at_price > variant.price %}sale{% endif %}">
                 <span class="current_price">
-                  {% if variant.inventory_quantity > 2 %}
+                  {% if product_beats_sold_out_threshold %}
                     {% if variant.price > 0 %}
                       {{ variant.price | money }}
                     {% else %}
@@ -69,13 +70,13 @@
         <p class="modal_price" itemscope itemtype="http://schema.org/Offer">
           <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
           <meta itemprop="seller" content="{{ shop.name | escape }}" />
-          <meta itemprop="availability" content="{% if variant.inventory_quantity > 2 %}in_stock{% else %}out_of_stock{% endif %}" />
+          <meta itemprop="availability" content="{% if product_beats_sold_out_threshold %}in_stock{% else %}out_of_stock{% endif %}" />
           <meta itemprop="itemCondition" content="New" />
 
-          <span class="sold_out">{% if variant.inventory_quantity <= 2 %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+          <span class="sold_out">{% unless product_beats_sold_out_threshold %}{{ 'products.product.sold_out' | t }}{% endunless %}</span>
           <span itemprop="price" content="{{ variant.price | money_without_currency }}" class="{% if variant.compare_at_price > variant.price %}sale{% endif %}">
              <span class="current_price">
-               {% if variant.inventory_quantity > 2 %}
+               {% if product_beats_sold_out_threshold %}
                  {% if variant.price > 0 %}
                    {{ variant.price | money }}
                  {% else %}

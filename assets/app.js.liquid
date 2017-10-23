@@ -571,7 +571,11 @@ $(function() {
       {% endif %}
     }
 
-    if (variant && variant.inventory_quantity > 2) {
+    // DD: set in product_sold_out_threshold
+    var threshold_attrs = window.GossamerGear[selector.product.id];
+    var sold_out_threshold_per_variant = Math.round(threshold_attrs.sold_out_threshold / threshold_attrs.variant_count);
+
+    if (variant && variant.inventory_quantity > sold_out_threshold_per_variant) {
       if(variant.price < variant.compare_at_price){
         $('.was_price', $product).html(Shopify.formatMoney(variant.compare_at_price, $productForm.data('money-format')))
       } else {

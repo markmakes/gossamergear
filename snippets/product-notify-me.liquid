@@ -1,5 +1,6 @@
-{% if settings.notify_me_form %}  
-  <div class="notify_form notify-form-{{ product.id }}" id="notify-form-{{ product.id }}" {% if product.available %}style="display:none"{% endif %}>
+{% if settings.notify_me_form %}
+  {% include 'product_sold_out_threshold' %}
+  <div class="notify_form notify-form-{{ product.id }}" id="notify-form-{{ product.id }}" {% if product.available and product_beats_sold_out_threshold %}style="display:none"{% endif %}>
     <a href="#" id="BIS_trigger">Notify me when available</a>
   </div>
 {% endif %}
