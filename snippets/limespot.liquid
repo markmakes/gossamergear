@@ -1,0 +1,19 @@
+<script type="text/javascript" async src="https://edge.personalizer.io/storefront/2.0.0/js/shopify/storefront.min.js?key=umi2d-gtd2uz8rro4ydv5ayy7rmg-hd5j1"></script>
+<script>
+window.LimeSpot = window.LimeSpot === undefined ? {} : LimeSpot;{% assign t = template | prepend: '/' | append: '.' %}
+{% if t contains '/product.' %}LimeSpot.PageInfo = { Type: "Product", ReferenceIdentifier: "{{ product.id }}"};
+{% elsif t contains '/collection.' %}LimeSpot.PageInfo = { Type: "Collection", ReferenceIdentifier: "{{ collection.id }}", Personalized: {%if collection.metafields.LimeSpot['Personalized'] == "true"%}true{%else%}false{%endif%} };
+{% elsif t contains '/index.' %}LimeSpot.PageInfo = { Type: "Home", ReferenceIdentifier: null };
+{% elsif t contains '/cart.' %}LimeSpot.PageInfo = { Type: "Cart", ReferenceIdentifier: null };
+{% elsif t contains '/search.' %}LimeSpot.PageInfo = { Type: "Search", ReferenceIdentifier: null };
+{% elsif t contains '/404.' %}LimeSpot.PageInfo = { Type: "Four04", ReferenceIdentifier: null };
+{% endif %}{% if customer %}LimeSpot.UserInfo = { Identifier: "{{ customer.id }}", Email: "{{ customer.email }}", FirstName: "{{ customer.first_name }}", LastName: "{{ customer.last_name }}" };
+{% endif %}
+LimeSpot.StoreInfo = { Theme: "{{ theme.name }}" };
+{% assign cart_product_ids = "" %}
+{% for item in cart.items %}
+	{% assign cart_product_ids = cart_product_ids | append: ',' | append: item.product.id %}
+{% endfor %}
+LimeSpot.CartItems = [{{ cart_product_ids | remove_first: "," }}];
+</script>
+{% comment %}Checksum: 0e2be88f11d9d310d6904ed5cc46789e{% endcomment %}

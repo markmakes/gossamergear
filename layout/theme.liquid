@@ -315,6 +315,7 @@
           {% include 'collection-listing' %}
         {% else %}
           {{ content_for_layout }}
+<limespot></limespot>
         {% endif %}
 
         </div>
@@ -498,5 +499,6 @@
 
     {% endif %}
 
-  </body>
+  {% include 'limespot' %}
+</body>
 </html>
