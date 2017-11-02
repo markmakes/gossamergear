@@ -1533,7 +1533,7 @@
     "display_vendor": true,
     "display_sku": false,
     "display_collections": true,
-    "display_related_products": true,
+    "display_related_products": false,
     "notify_me_form": true,
     "display_product_quantity": true,
     "display_inventory_left": false,
