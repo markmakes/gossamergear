@@ -2151,4 +2151,14 @@ jQuery(function ($) {
   	$("#" + tab).show();
   });
 
+  // DD: Click on Reviews tab
+  $('.product_section').on('click', '.spr-badge', function(event) {
+    event.preventDefault();
+    var reviewTab = $('#reviews-tab')
+    reviewTab.click();
+    $('html, body').animate({
+      scrollTop: (reviewTab.offset().top)
+    },500);
+  })
+
 });
